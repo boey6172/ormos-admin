@@ -55,7 +55,7 @@ const Stores = () => {
     })
   },[])
 
- const handlePost = e =>{
+const handlePost = e =>{
   e.preventDefault()
     instance.post("./stores.json", values).then((response) => {
       instance.get("stores.json").then((response)=>{

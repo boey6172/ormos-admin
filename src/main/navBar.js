@@ -14,6 +14,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import StoreIcon from '@material-ui/icons/Store';
 import {Link} from 'react-router-dom';
 import firebase from 'firebase';
+import MotorcycleIcon from '@material-ui/icons/Motorcycle';
+
 
 const useStyles = makeStyles({
   list: {
@@ -72,6 +74,12 @@ const AppBarMenu = (props) =>{
               <ListItemIcon><StoreIcon /> </ListItemIcon>
               <Link to="/stores">Stores</Link>
         </ListItem>
+        <Link to="/riders">
+        <ListItem button>
+              <ListItemIcon><MotorcycleIcon /> </ListItemIcon>
+              Riders
+        </ListItem>
+        </Link>
         <ListItem button>
           <ListItemIcon><ExitToAppIcon /> </ListItemIcon>
           <Link onClick={signOut}>Log Out</Link>

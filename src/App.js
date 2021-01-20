@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Route} from 'react-router-dom';
 import Main from './main/main';
 import NavBar from './main/navBar';
 import Stores from './store/stores'
+import Riders from './riders/riders'
+
 
 var uiConfig = {
   signInFlow: 'popup',
@@ -80,8 +82,8 @@ if(user){
         )} />
           
       <Route path="/stores" component={Stores}/>
-      {/* <Route path="/p2p" component={PtoP}/>
-      <Route path="/food" component={Food}/> */}
+      <Route path="/riders" component={Riders}/>
+
 
       </Router>
       </>
