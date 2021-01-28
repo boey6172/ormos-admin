@@ -5,6 +5,9 @@ import instance from '../instance/instance';
 import { makeStyles } from '@material-ui/core/styles';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { storage } from '../config/firebase'
+import firebase from 'firebase';
+
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -14,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
 
  
 const Riders = () => {
+
+
+
   const classes = useStyles();
   const initialFieldValues = {
     riderName:'',
@@ -39,22 +45,23 @@ const Riders = () => {
       ...values,
       [name]: value,
     })
+ 
    
   }
-  const getDate = ()=>{
-    var date = new Date().toLocaleString();
+  const getDate =async ()=>{
+
+    var  yehey = await new firebase.firestore.Timestamp.now;
     setValues({
-      createdDate: date,
-      updatedDate:date
+      ...values,
+      createdDate: yehey.seconds,
+      updatedDate: yehey.seconds,
     })
-    // return date
+    // return yehey
   }
 
   const handlePost = e =>{
     e.preventDefault()
       let isError=false;
-     
-
       if(values.riderName === "")
       {
         isError=true
@@ -107,13 +114,14 @@ const Riders = () => {
   }
 
   useEffect(()=> {
-    getDate();
+    // getDate();
     refresh();
   },[])
 
   const handleRemove = (id) =>{
     instance.delete(`./riders/${id}.json`).then((response)=>{
       refresh();
+      handleClear();
     })
   }
   const handleGetData = (id) =>{
@@ -123,6 +131,7 @@ const Riders = () => {
     setValues({
       ...rider
     })
+    // getDate();
   }
   const handleClear = () =>{
     setCurrentId('')
@@ -133,12 +142,12 @@ const Riders = () => {
       error:false,
       errorMessage:''
     })
-    getDate();
   }
   const clickClear = e =>{
     e.preventDefault()
     handleClear();
-   
+    // getDate();
+
   }
 
   const refresh = ()=>{
@@ -151,8 +160,23 @@ const Riders = () => {
         riders:getData
       })
     })
+    getDate();
   }
 
+  const handleChange = async(e) =>{
+    if(e.target.files[0]){
+      const image = e.target.files[0];
+      const storageRef = storage.ref(`riders/${image.name}`)
+      await storageRef.put(image)
+      storageRef.getDownloadURL().then((url) => {
+        setValues({
+          ...values,
+          pic:url
+      });
+      });
+    }
+   
+  }
 
 
 
@@ -168,11 +192,13 @@ if(riders){
         currentId={currentId}
         handleClear={clickClear}
         errors={errors}
+        handleChange={handleChange}
       />
       <List 
         riders={riders}
         handleRemove= {handleRemove} 
         handleGetData= {handleGetData}  
+
 
       />
     </> 

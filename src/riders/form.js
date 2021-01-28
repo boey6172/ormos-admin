@@ -18,7 +18,6 @@ const Form = (props) => {
   const classes = useStyles();
   return ( 
     <>
-    {/* <a href="https://www.messenger.com/t/100000180313307">Messenger Test</a> */}
     <form className={classes.container} autoComplete="off" onSubmit={props.handlePost} noValidate>
       <div className={classes.margin}>
         <Grid container spacing={1} alignItems="flex-end">
@@ -55,7 +54,40 @@ const Form = (props) => {
             />
           </Grid>
           <Grid item>
-            <Button  type="submit"  variant="contained" color={props.currentId === ''?"Primary":"Secondary"} >
+            <TextField
+              accept="image/*"
+              style={{display:'none'}}
+              name={props.values.pic}
+              id="contained-button-file"
+              type="file"
+              onChange = {props.handleChange}
+            />
+            <label htmlFor="contained-button-file">
+              <Button 
+              variant="contained" 
+              color="primary" 
+              component="span"
+              >
+                Upload Picture
+              </Button>
+            </label>
+          </Grid>
+        </Grid>
+      </div>
+      <div className={classes.margin}>
+        <Grid container spacing={1} alignItems="flex-end">
+          <Grid item>
+              <ChatIcon />
+          <TextField
+            name="link"
+            label="Messenger Link"
+            // value={value}
+            onChange={props.handelInputChange}
+            value={props.values.link}
+          />
+          </Grid>
+          <Grid item>
+            <Button  type="submit"  variant="contained" color={props.currentId === ''?"primary":"secondary"} >
             {props.currentId === ''?"Save":"Update"}
             </Button>
           </Grid>
@@ -65,20 +97,7 @@ const Form = (props) => {
             </Button>
           </Grid>
         </Grid>
-      </div>
-      <div className={classes.margin}>
-        <Grid container spacing={1} alignItems="flex-end">
-          <Grid item>
-              <ChatIcon />
-          </Grid>
-          <TextField
-            name="link"
-            label="Messenger Link"
-            // value={value}
-            onChange={props.handelInputChange}
-            value={props.values.link}
-          />
-        </Grid>
+        
 
       </div>
       </form>

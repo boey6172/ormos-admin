@@ -10,6 +10,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import DeleteIcon from '@material-ui/icons/Delete';
 import UpdateIcon from '@material-ui/icons/Update';
+import Avatar from '@material-ui/core/Avatar';
+import Helper from '../helper'
 
 
 const useStyles = makeStyles({
@@ -26,6 +28,7 @@ const List = (props) => {
     <Table className={classes.table} aria-label="simple table">
       <TableHead>
         <TableRow>
+          <TableCell>Picture</TableCell>
           <TableCell>Name</TableCell>
           <TableCell align="right">Contact Number</TableCell>
           <TableCell align="right">Messenger Link</TableCell>
@@ -39,12 +42,15 @@ const List = (props) => {
         {props.riders.riders.map((riders) => (
           <TableRow key={riders.id}>
             <TableCell component="th" scope="row">
+               <Avatar alt={riders.riderName} src={riders.pic} />
+            </TableCell>
+            <TableCell component="th" scope="row">
               {riders.riderName}
             </TableCell>
             <TableCell align="right">{riders.contactNumber}</TableCell>
             <TableCell align="right">{riders.link}</TableCell>
-            <TableCell align="right">{riders.createdDate}</TableCell>
-            <TableCell align="right">{riders.updatedDate}</TableCell>
+            <TableCell align="right"><Helper seconds={riders.createdDate}/></TableCell>
+            <TableCell align="right"><Helper seconds={riders.updatedDate}/></TableCell>
             <TableCell align="right">
             <Button onClick={() => props.handleGetData(riders.id)} variant="contained" color="secondary">
             <UpdateIcon/>
