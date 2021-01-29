@@ -50,11 +50,11 @@ const Riders = () => {
   }
   const getDate =async ()=>{
 
-    var  yehey = await new firebase.firestore.Timestamp.now;
+    var  datestamp = await new firebase.firestore.Timestamp.now;
     setValues({
       ...values,
-      createdDate: yehey.seconds,
-      updatedDate: yehey.seconds,
+      createdDate: datestamp.seconds,
+      updatedDate: datestamp.seconds,
     })
     // return yehey
   }

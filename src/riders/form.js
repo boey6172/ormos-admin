@@ -88,7 +88,7 @@ const Form = (props) => {
           </Grid>
           <Grid item>
             <Button  type="submit"  variant="contained" color={props.currentId === ''?"primary":"secondary"} >
-            {props.currentId === ''?"Save":"Update"}
+             {props.currentId === ''?"Save":"Update"}
             </Button>
           </Grid>
           <Grid item>
