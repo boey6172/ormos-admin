@@ -27,17 +27,17 @@ var minutes = ("0" + date_ob.getMinutes()).slice(-2);
 var seconds = ("0" + date_ob.getSeconds()).slice(-2);
 
 // date as YYYY-MM-DD format
-console.log("Date as YYYY-MM-DD Format: " + year + "-" + month + "-" + date);
+// console.log("Date as YYYY-MM-DD Format: " + year + "-" + month + "-" + date);
 
-console.log("\r\n");
+// console.log("\r\n");
 
 // date & time as YYYY-MM-DD hh:mm:ss format: 
-console.log("Date as YYYY-MM-DD hh:mm:ss Format: " + year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
+// console.log("Date as YYYY-MM-DD hh:mm:ss Format: " + year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
 
-console.log("\r\n");
+// console.log("\r\n");
 
 // time as hh:mm format: 
-console.log("Time as hh:mm Format: " + hours + ":" + minutes);
+// console.log("Time as hh:mm Format: " + hours + ":" + minutes);
 
 var datenow = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds
   
