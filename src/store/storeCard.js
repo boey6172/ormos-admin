@@ -5,6 +5,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Grid from "@material-ui/core/Grid";
+
 
 const useStyles = makeStyles({
   root: {
@@ -25,22 +27,29 @@ const StoreCard = (props) =>{
   const {storeName, logo, id, storetype,handleClickOpen} = props;
   return(
   <>
-    <Card className={classes.root} onClick={()=>{handleClickOpen();}}>
+   <Grid key={storeName} item>
+    <Card className={classes.root}>
     <CardContent>
       {/* <Typography className={classes.title} color="textSecondary" gutterBottom>
         store
       </Typography> */}
-      <img alt='robots' src={logo}  height ='300' width='300' />
+      <img alt='robots' src={logo}  className='content-image' />
       <div className='tc'>
         <h2>{storeName}</h2>
         <p>{storetype}</p> 
          asdasd
       </div>
     </CardContent>
-    {/* <CardActions>
-      <Button size="small">Learn More</Button>
-    </CardActions> */}
+      <CardActions>
+        <Button onClick={() => props.handleGetData(id)} variant="contained" color="secondary">
+          update
+        </Button>
+        <Button onClick={() => props.handleRemove(id)} variant="contained" color="default">
+          Delete
+        </Button>
+      </CardActions>
     </Card>
+    </Grid>
 </>
   );
 }

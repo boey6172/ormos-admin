@@ -1,38 +1,36 @@
 import React,{ useState}from 'react';
 import Card from './storeCard';
+import Grid from "@material-ui/core/Grid";
 
-const DisplayStores = ({results}) => {
+
+const DisplayStores = (props) => {
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-    const cardComponent = results.stores.map((store ,i) => {
+    const cardComponent = props.results.stores.map((store ,i) => {
       return( <Card 
         key={i} 
-        id={ i} 
+        id={ store.id} 
         storeName={(store.storeName !== null ? store.storeName : 'yehey')} 
         logo={store.logo}
         storetype={(store.storetype !== null ? store.storetype : 'yehey')}
-        handleClickOpen={handleClickOpen}
-        handleClose={handleClose}
+        handleRemove={props.handleRemove}
+        handleGetData={props.handleGetData}
 
       />
       );  
     })
     return( 
-    <div> 
       <div>
-      {cardComponent} 
+      <div className="content-container">
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Grid container justify="center" spacing={1}>
+              {cardComponent} 
+              </Grid>
+            </Grid>
+          </Grid>
       </div>
-      <div>
       </div>
-    </div>
     )
 
   

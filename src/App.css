@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+.content-container {
+  background-color: gray;
+  max-width: 100%;
+}
+.content-image {
+  height: 170px;
+  display: block;
+  max-width: 165px;
+  overflow: hidden;
+  width: 90%;
+  position: relative;
+  margin-right: 17px;
+}

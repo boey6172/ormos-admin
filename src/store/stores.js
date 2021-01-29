@@ -34,41 +34,28 @@ const Stores = () => {
 
   var [values,setValues ] =  useState(initialFieldValues)
   var [stores,setStores] = useState(null)
+  var [currentId,setCurrentId] = useState('')
+
 
 
   useEffect(()=> {
-    instance.get("stores.json").then((response)=>{
-
-      const getData=[];
-      for (let key in response.data){
-          getData.push({...response.data[key], id: key})
-        }
-      setStores({
-        stores:getData
-      })
-      if (stores)
-      {
-        const filteredStore = stores.filter(robots => {
-          return robots.name.toLowerCase().includes(values.store);
-        })
-      }
-    })
+    refresh();
   },[])
 
 const handlePost = e =>{
   e.preventDefault()
+  if(currentId===''){
     instance.post("./stores.json", values).then((response) => {
-      instance.get("stores.json").then((response)=>{
-
-        const getData=[];
-        for (let key in response.data){
-            getData.push({...response.data[key], id: key})
-          }
-        setStores({
-          stores:getData
-        })  
-      })
+      refresh();
+      handleClear();
     }) 
+  }
+  else{
+    instance.put(`stores/${currentId}.json`, values).then((response) => {
+      refresh();
+      handleClear();
+    })
+  }
   }
 
   const handleChangeType = (e) => {
@@ -100,6 +87,39 @@ const handlePost = e =>{
     }
     toast.success("You added a new Logo!");
   }
+  const handleRemove = (id) =>{
+    instance.delete(`./stores/${id}.json`).then((response)=>{
+      refresh();
+      handleClear();
+    })
+  }
+  
+  const refresh = ()=>{
+    instance.get("stores.json").then((response)=>{
+      const getData=[];
+      for (let key in response.data){
+          getData.push({...response.data[key], id: key})
+        }
+      setStores({
+        stores:getData
+      })
+    })
+  }
+  const handleClear = () =>{
+    setCurrentId('')
+    setValues({
+      ...initialFieldValues
+    })
+  }
+  const handleGetData = (id) =>{
+    const store= stores.stores.find((store)=>store.id === id)
+    setCurrentId(id)
+    setValues({
+      ...store
+    })
+    // getDate();
+  }
+
 if(stores){
   return ( 
     <>
@@ -110,10 +130,16 @@ if(stores){
         handelInputChange={handelInputChange}
         handleChange={handleChange}
         handleChangeType={handleChangeType}
+        handleClear={handleClear}
+        currentId={currentId}
       />
      </div>
      <div>
-      <DisplayStores  results={stores}/>
+      <DisplayStores  
+      results={stores}
+      handleRemove={handleRemove}
+      handleGetData={handleGetData}
+      />
      </div>
      
     </> 
