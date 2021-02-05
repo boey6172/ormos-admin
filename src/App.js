@@ -6,8 +6,10 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import Main from './main/main';
 import NavBar from './main/navBar';
-import Stores from './store/stores'
-import Riders from './riders/riders'
+import Stores from './store/stores';
+import Riders from './riders/riders';
+import Product from './product/product';
+
 
 
 var uiConfig = {
@@ -83,6 +85,7 @@ if(user){
           
       <Route path="/stores" component={Stores}/>
       <Route path="/riders" component={Riders}/>
+      <Route path="/product" component={Product}/>
 
 
       </Router>

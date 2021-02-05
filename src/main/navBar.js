@@ -74,6 +74,12 @@ const AppBarMenu = (props) =>{
               <ListItemIcon><StoreIcon /> </ListItemIcon>
               <Link to="/stores">Stores</Link>
         </ListItem>
+        <Link to="/product">
+        <ListItem button>
+          <ListItemIcon><StoreIcon /> </ListItemIcon>
+          Product
+        </ListItem>
+        </Link>
         <Link to="/riders">
         <ListItem button>
               <ListItemIcon><MotorcycleIcon /> </ListItemIcon>
