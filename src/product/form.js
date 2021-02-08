@@ -14,6 +14,8 @@ import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import UpdateIcon from '@material-ui/icons/Update';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -173,6 +175,7 @@ const Form = (props) => {
                     <TableRow>
                       <TableCell>Size</TableCell>
                       <TableCell>Price</TableCell>
+                      <TableCell>Actions</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -180,6 +183,14 @@ const Form = (props) => {
                       <TableRow key={holder.size}>
                         <TableCell align="right">{holder.size}</TableCell>
                         <TableCell align="right">{holder.price}</TableCell>
+                        <TableCell align="left">
+                          {/* <Button  type="submit"  variant="contained" color="secondary" >
+                             <UpdateIcon />
+                          </Button> &nbsp; */}
+                          <Button  onClick={() => props.deleteVariety(holder)} variant="contained" color="default" >
+                            <DeleteForeverIcon/>
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

@@ -35,6 +35,7 @@ const Product = () => {
   var [variety,setVariety ] =  useState(varietyInt)
   var [holder,setHolder ] =  useState([])
   var [stores,setStores ] =  useState(null)
+  var [product,setProduct ] =  useState(null)
   var [currentId,setCurrentId] = useState('')
 
 
@@ -65,11 +66,53 @@ const Product = () => {
        } )
       handleClear();
   }
+  const deleteVariety = (props) =>{
+    var array = holder;
+    var index= array.indexOf(props)
+    if (index !== -1) {
+     array.splice(index, 1);
+      setValues({
+        ...values,
+        specification:array
+       } )
+    }
+  }
+  const handleRemove = (id) =>{
+    instance.delete(`./products/${id}.json`).then((response)=>{
+      handleClear();
+    })
+  }
+  const handleGetData = (id) =>{
+    setHolder([]);
+    getData(id);
+  }
+
+  const getData = (id) =>{
+    handleClear();
+    
+    var values= product.products.find((product)=>product.id === id)
+    setCurrentId(id)
+    setValues({
+      ...values
+    })
+    var getData=[];
+    for (let key in values.specification){
+      getData.push({ size: values.specification.[key].size ,price:values.specification.[key].price})
+    }
+    console.log(getData)
+    setHolder([
+      ...getData
+    ])
+    
+  }
+
   const handleClear = () =>{
     setVariety({
       ...varietyInt
     })
   }
+
+
   useEffect(()=> {
     db.child('products')
       .on('value',snapshot=>{
@@ -77,18 +120,17 @@ const Product = () => {
       //   console.log(snapshot)
       //   console.log(db)
       getStores();
+      getProduct();
     })
     db.onDisconnect(
       getStores()
-    )
-    // getDate();
-   
+    ) 
   },[])
   const handlePost = e =>{
     e.preventDefault()
         if(currentId===''){
           instance.post("./products.json", values).then((response) => {
-            console.log(response)
+            // console.log(response)
             // refresh();
             // handleClear();
           }) 
@@ -122,6 +164,18 @@ const Product = () => {
     })
     // getDate();
   }
+  const getProduct = ()=>{
+    instance.get("products.json").then((response)=>{
+      const getData=[];
+      for (let key in response.data){
+          getData.push({...response.data[key],id:key})
+        }
+      setProduct(
+        {products:getData}
+      )
+    })
+    // getDate();
+  }
   const handleChange = async(e) =>{
     if(e.target.files[0]){
       const image = e.target.files[0];
@@ -134,11 +188,11 @@ const Product = () => {
       });
       });
     }
-   
   }
 
 
-if(stores)
+
+if(stores !== null && product !== null)
  { return ( 
     <>
       <Form 
@@ -152,11 +206,14 @@ if(stores)
         handleChangeType={handleChangeType}
         handleChange={handleChange}
         handlePost={handlePost}
-
-
+        deleteVariety={deleteVariety}
       />
       <div></div>
-      <ProductList />
+      <ProductList 
+      products={product}
+      handleRemove={handleRemove}
+      handleGetData={handleGetData}
+      />
     </>
    );}
    else{
