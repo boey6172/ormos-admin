@@ -97,7 +97,7 @@ const Product = () => {
     })
     var getData=[];
     for (let key in values.specification){
-      getData.push({ size: values.specification.[key].size ,price:values.specification.[key].price})
+      getData.push({ size: values.specification[key].size ,price:values.specification[key].price})
     }
     console.log(getData)
     setHolder([
