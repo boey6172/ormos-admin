@@ -133,6 +133,7 @@ const Product = () => {
             // console.log(response)
             // refresh();
             // handleClear();
+            handleClearButton()
           }) 
         }
         else
@@ -140,6 +141,7 @@ const Product = () => {
           instance.put(`products/${currentId}.json`, values).then((response) => {
             // refresh();
             // handleClear();
+            handleClearButton()
           })
         }
       
