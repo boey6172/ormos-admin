@@ -150,6 +150,11 @@ const Form = (props) => {
                   Upload Picture
                 </Button>
               </label>
+      
+            <Button  onClick={props.handleClearButton}  variant="contained" color="secondary">
+              {/* {props.currentId === ''?"Save":"Update"} */}
+              Clear
+              </Button>
             </Grid>
           </Grid>
         </div>
@@ -158,11 +163,11 @@ const Form = (props) => {
 
             <Grid item>
             <Button  type="submit"  variant="contained" 
-            // color={props.currentId === ''?"primary":"secondary"} 
+            color={props.currentId === ''?"primary":"secondary"} 
             color="primary"
             >
-             {/* {props.currentId === ''?"Save":"Update"} */}
-             Save
+             {props.currentId === ''?"Save":"Update"}
+            
             </Button>
             </Grid>
           </Grid>

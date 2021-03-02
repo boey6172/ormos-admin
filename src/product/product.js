@@ -189,6 +189,16 @@ const Product = () => {
       });
     }
   }
+  const handleClearButton = () =>{
+    setCurrentId('')
+    setValues({
+      ...initialFieldValues
+    })
+    setVariety({
+      ...varietyInt
+    })
+    setHolder([])
+  }
 
 
 
@@ -207,6 +217,8 @@ if(stores !== null && product !== null)
         handleChange={handleChange}
         handlePost={handlePost}
         deleteVariety={deleteVariety}
+        handleClearButton={handleClearButton}
+        currentId={currentId}
       />
       <div></div>
       <ProductList 
